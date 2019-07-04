@@ -1,0 +1,23 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.6.RELEASE'
+	id "io.freefair.lombok" version "3.7.5"
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'org.edu.kushima'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.apache.kafka:kafka-clients:2.2.1'
+	implementation 'com.twitter:hbc-core:2.2.0'
+	
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

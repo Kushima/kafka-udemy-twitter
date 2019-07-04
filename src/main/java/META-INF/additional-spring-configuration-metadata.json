@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "twitter",
+  "type": "org.edu.kushima.kafkaudemytwitter.properties.TwitterClientProperties",
+  "description": "A description for 'twitter'"
+}]}
