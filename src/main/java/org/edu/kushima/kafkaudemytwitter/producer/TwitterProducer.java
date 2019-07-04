@@ -31,12 +31,6 @@ public class TwitterProducer {
     
     private static final Logger LOG = LoggerFactory.getLogger(TwitterProducer.class);
 
-    // These secrets should be read from a config file
-    String consumerKey = "gGkYpW2PVUfAJWnHCSSiPFwk9";
-    String consumerSecret = "uXz6yOPcBVlnCltNpBk627Ov9LZ1q5aZc4lh2wGTQIvws0W8km";
-    String token = "15044616-PFNduxrGiHEd1mDXXmPnqMMvit0NUcN8ERZCg97as";
-    String tokenSecret = "hyJMBC6XsP4IKruS6LP3aDaQII08DYrgRIfK5QIR1ISdV";
-
     public void run() {
         /**
          * Set up your blocking queues: Be sure to size these properly based on expected
