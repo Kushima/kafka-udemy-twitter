@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-KafkaUdemyTwitterApplication<kafka-udemy-twitter>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "org.edu.kushima.kafkaudemytwitter.KafkaUdemyTwitterApplication",
+            "projectName": "kafka-udemy-twitter",
+            "args": ""
+        }
+    ]
+}
