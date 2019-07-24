@@ -3,6 +3,9 @@ package org.edu.kushima.kafkaudemyelasticsearch;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -28,6 +31,8 @@ public class KafkaUdemyTwitterApplication {
 	@Autowired
 	private ElasticSearchConsumer consumer;
 
+	private static final JsonParser jsonParser = new JsonParser();
+
 	private static final Logger LOG = LoggerFactory.getLogger(KafkaUdemyTwitterApplication.class);
 
 	public static void main(String[] args) throws InterruptedException, ExecutionException {
@@ -42,23 +47,41 @@ public class KafkaUdemyTwitterApplication {
 		while (true) {
 			ConsumerRecords<String, String> records = kafkaConsumer.poll(Duration.ofMillis(100));
 
+			LOG.info("Received: {} records", records.count());
 			for (ConsumerRecord<String, String> record : records) {
 				// insert data to elasticsearch
-
-				IndexRequest request = new IndexRequest("twitter", "tweets").source(record.value(), XContentType.JSON);
+				String tweetId = getTweetId(record);
+				String tweetUser = getTweetUser(record);
+				IndexRequest request = new IndexRequest("twitter", "tweets", tweetId).source(tweetUser, XContentType.JSON);
 				IndexResponse response = client.index(request, RequestOptions.DEFAULT);
 
 				String id = response.getId();
 				LOG.info("ID: {}", id);
 				try {
-					Thread.sleep(500);
+					Thread.sleep(10);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-		}	
+			LOG.info("Commiting offsets");
+			kafkaConsumer.commitAsync();
+			LOG.info("Offsets has been commited");
+
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 
 		// client.close();
+	}
+
+	private String getTweetId(ConsumerRecord<String, String> record) {
+		return jsonParser.parse(record.value()).getAsJsonObject().get("id_str").getAsString();
+	}
+
+	private String getTweetUser(ConsumerRecord<String, String> record) {
+		return jsonParser.parse(record.value()).getAsJsonObject().get("user").getAsJsonObject().toString();
 	}
 }

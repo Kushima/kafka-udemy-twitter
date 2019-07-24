@@ -23,6 +23,8 @@ public class MyKafkaConsumer {
         props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        props.setProperty(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
+        props.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "10");
         
         KafkaConsumer<String, String> kc = new KafkaConsumer<>(props);
         kc.subscribe(topics);

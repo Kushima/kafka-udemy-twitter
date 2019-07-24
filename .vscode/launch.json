@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-KafkaUdemyTwitterApplication<kafka-udemy-elasticsearch-consumer>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "org.edu.kushima.kafkaudemyelasticsearch.KafkaUdemyTwitterApplication",
+            "projectName": "kafka-udemy-elasticsearch-consumer",
+            "args": ""
+        }
+    ]
+}
